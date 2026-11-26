@@ -11,7 +11,25 @@ export default function ProductCard({ product, selected, onToggleCompare, compar
   return (
     <article className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-card transition duration-200 hover:-translate-y-1 hover:shadow-lift">
       <div className="relative bg-white">
-        <img src={product.image_url} alt={product.name} loading="lazy" className="aspect-[3/4] w-full object-contain p-2" />
+        <img
+  src={
+    product.image_url
+      ? product.image_url.startsWith("http")
+        ? product.image_url
+        : `https://stylescout-backend.onrender.com${
+            product.image_url.startsWith("/")
+              ? ""
+              : "/"
+          }${product.image_url}`
+      : ""
+  }
+  alt={product.name}
+  loading="lazy"
+  onError={(e) => {
+    e.currentTarget.style.display = "none";
+  }}
+  className="aspect-[3/4] w-full object-contain p-2"
+/>
         {product.match_percent != null && (
           <span className="absolute left-2 top-2 rounded-full bg-brand-teal px-2.5 py-1 text-xs font-bold text-white shadow">
             {product.match_percent}% match
