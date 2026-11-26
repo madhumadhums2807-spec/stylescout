@@ -37,4 +37,5 @@ COLOUR_WEIGHT = float(os.getenv("STYLESCOUT_COLOUR_WEIGHT", "0.03"))
 CORS_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+"https://stylescout-frontend.onrender.com",
 ]
