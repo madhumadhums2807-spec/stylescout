@@ -1,5 +1,5 @@
 // All HTTP calls live here, so components never build URLs or parse errors themselves.
-
+const API_BASE_URL = 'https://stylescout-mxtd.onrender.com' ;
 async function handle(res) {
   if (res.ok) return res.json()
   let detail = `Request failed (${res.status})`
@@ -20,12 +20,12 @@ export async function searchByImage(file, { minPrice, maxPrice, platforms, sort,
   if (platforms?.length) form.append('platforms', platforms.join(','))
   if (sort) form.append('sort', sort)
   if (topK) form.append('top_k', topK)
-  return handle(await fetch('/api/search', { method: 'POST', body: form }))
+  return handle(await fetch(`${API_BASE_URL}/api/search`, { method: 'POST', body: form }))
 }
 
 export async function compareProducts(ids) {
   return handle(
-    await fetch('/api/compare', {
+    await fetch(`${API_BASE_URL}/api/compare`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ids }),
@@ -33,8 +33,8 @@ export async function compareProducts(ids) {
   )
 }
 
-export const getPlatforms = async () => handle(await fetch('/api/platforms'))
-export const getHealth = async () => handle(await fetch('/api/health'))
+export const getPlatforms = async () => handle(await fetch(`${API_BASE_URL}/api/platforms`))
+export const getHealth = async () => handle(await fetch(`${API_BASE_URL}/api/health`))
 
 /** More products like this one (same category), nearest first. */
-export const getSimilar = async (id, limit = 12) => handle(await fetch(`/api/products/${id}/similar?limit=${limit}`))
+export const getSimilar = async (id, limit = 12) => handle(await fetch(`${API_BASE_URL}/api/products/${id}/similar?limit=${limit}`))
