@@ -1,5 +1,5 @@
 // All HTTP calls live here, so components never build URLs or parse errors themselves.
-const API_BASE_URL = 'https://stylescout-mxtd.onrender.com' ;
+const API_BASE_URL = 'https://stylescout-backend.onrender.com' ;
 async function handle(res) {
   if (res.ok) return res.json()
   let detail = `Request failed (${res.status})`
